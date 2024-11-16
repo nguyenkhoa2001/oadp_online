@@ -2,7 +2,7 @@
 %Kyriakos Vamvoudakis
 %ARRI
 
-clear all
+clear
 close all
 clc
 
@@ -11,7 +11,10 @@ clc
 R=1;
 Q=[1 0 ; 0 1];
 
-
+% Giá trị khởi tạo 
+% 2 giá trị đầu là state
+% 3 giá trị sau là critic (3 số do gồm x1^2 , x1x2, x2^2)
+% 3 giá trị sau cùng là actor
 x0=[1 -1   rand(1,3) zeros(1,3)];
    
    options = odeset('OutputFcn',@odeplot);

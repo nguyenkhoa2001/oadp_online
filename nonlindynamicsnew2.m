@@ -17,6 +17,7 @@ W=[x(3) x(4) x(5)   ]';
 H=[x(6) x(7) x(8)  ]';
  phix=[x1^2 x1*x2  x2^2];
   dphix=[2*x1 0; x2 x1; 0 2*x2];
+    % Khi thay bằng hệ khác thì nhớ thay đổi 2 cái pt f(x) và g(x) này
     f=[-x1+(x2) ;-0.5*x1-0.5*(x2)*(1-(cos(2*x1)+2)^2)];
     g=[0; (cos(2*x1)+2)];
      u=-0.5*inv(R)*g'*dphix'*H;
