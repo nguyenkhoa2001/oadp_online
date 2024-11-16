@@ -18,7 +18,13 @@ R=1;
 Q=eye(3);
 % g=[1; 3.5;0 ];
 % 
+
+% X init ban đầu gồm 2 thành phần
+% 3 hệ số đầu tiên là 3 state init
+% 6 số tiếp theo là actor
+% 6 số cuối cùng là critic
 x0=[1 -1 1   ones(1,6) rand(1,6)];
+
 % z(1,:)=x0;
 % f=[-0.376*x0(1)+x0(2) ;-1.8115*x0(1)+2*x0(3);0.725*x0(1)]; 
 % phixx=[x0(1)^2 x0(1)*x0(2) x0(1)*x0(3)   x0(2)^2 x0(2)*x0(3) x0(3)^2];
@@ -36,6 +42,8 @@ x0=[1 -1 1   ones(1,6) rand(1,6)];
 %                'MaxStep',500,'RelTol',1e-5,'AbsTol',1e-4,'OutputFcn',@odeplot);
    options = odeset('OutputFcn',@odeplot);
 %  [t,x]=ode23(@sys,[tstart tfinal],x0,options);
+% Tổng thời gian chạy ở đây
+
    [t,x]= ode23('dynamicsnew3',[0 1000],x0,options);
 %    x01=[1 1 -2 x(length(x),1:12)];
 %    [t,x]= ode23('dynamicsnew3',[0 500],x01,options);
@@ -84,7 +92,7 @@ legend ('W_{a1}','W_{a2}', 'W_{a3}','W_{a4}','W_{a5}', 'W_{a6}');
 %%%%%%%%%%%%%%%%%%
 
 
-
+% Đây là một hệ bậc 3
 B=[0 0 1]';
 A=[-1.01887 0.90506 -0.00215; 0.82225 -1.07741 -0.17555; 0 0 -1]
 
@@ -94,9 +102,15 @@ A=[-1.01887 0.90506 -0.00215; 0.82225 -1.07741 -0.17555; 0 0 -1]
 Q=eye(3);
 R=1;
 
+% Trước tiên, tính P theo lý thuyết
 PTheor=care(A,B,Q,R);
 
 
+% P có dạng đối xứng
+% P = [p11 2*p12 2*p13 p14;
+%      p12 2*p22 2*p23 p24; 
+%      ...]
+% Cái theta là vec(P) =  
 Papprox=[x(length(x),4)    x(length(x),5)/2  x(length(x),6)/2
      x(length(x),5)/2  x(length(x),7) x(length(x),8)/2  
      x(length(x),6)/2 x(length(x),8)/2 x(length(x),9) 
